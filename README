@@ -1,0 +1,40 @@
+*********** What is this? ***********
+This tool is used to re-organize a flat directory with a large 
+number of files into a multi-level hierarchical structure where files 
+are distributed across many subfolders. Additionally, a library is 
+provided that sits between the application and the file system and 
+lets the application see the folder in its original flat structure.
+
+The incentive is to mitigate bottleneck of many processes trying to read
+files from the same directory at the same time.
+
+*********** How to use it ***********
+1. Re-organize files in the target directory using the reorganize-dir/flat_to_nested.py
+   script. 
+   NOTE: once the tree structure is created and the files are 
+   moved to the sub-folders, there will be NO WAY TO REVERT the 
+   directory structure unless you want to write your own script that does that.
+   NOTE #2: depending on the number of files in the directory, the script may
+   take some time to move them all around.
+   
+   Run reorganize-dir/flat_to_nested.py with no parameters to read the info
+   message otherwise: 
+   
+		cd reorganize-dir
+		python flat_to_nested.py my-data-dir move
+   
+   Note that if you dont specify "move",  the script will only print out 
+   the theoretical path to which each file would be moved as well as 
+   some statistical information about the distribution. No files will
+   be actually moved.
+   
+2. Compile the hook library that will intercept application's I/O calls
+
+		cd translate-filename
+		make
+
+3. When executing the application, set LD_PRELOAD flag to intercept I/O, 
+   also set FLAT_TO_NESTED_DIR to the directory which has been re-organized
+   
+   FLAT_TO_NESTED_DIR=~/my-data-dir LD_PRELOAD=flat2tree-dir/translate-filename/libtransfname.so ./myprog ~/my-data-dir
+
