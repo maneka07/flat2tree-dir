@@ -35,7 +35,7 @@ struct cur_dir{
 };
 
 struct cur_dir _cur_dir = {NULL, -1}; 
-static int  _nest_depth = 0;
+static int  _nest_depth = 20;
 static char _dir_cache[DIR_CACHE_SIZE][PATH_MAX];
 static int  _last_cached = -1;
 
@@ -369,7 +369,8 @@ int readdir64_r(DIR *dirp, struct dirent64 *entry, struct dirent64 **result)
 				}else if(_nest_depth < 1 || _nest_depth > SHA_DIGEST_LENGTH){							   \
 					PRINT_MSG(VERBOSE_LEVEL_ERROR,"Error nesting depth value should be between 1 		   \
 							and %d but value is %d\n", SHA_DIGEST_LENGTH, _nest_depth);						\
-				}															\
+				}																							\
+				PRINT_MSG(VERBOSE_LEVEL, "Nested value %d", _nest_depth);									\
 			} else 															\
 				fseek(_cur_dir.metafile, sizeof(int), SEEK_SET);			\
 			return _cur_dir.dirp;											\

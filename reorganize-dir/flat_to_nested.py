@@ -54,9 +54,9 @@ def check_args(argv, maxdepth):
 	but simply print out statistical information  about number of 
 	directory entries on each directory level if the reorganization 
 	was done. Possible values 'stats' - only analyze, 'move'
-	- actually move files. (default 'stats')
-	* dir-depth (optional) - depth of the reorganized directory hierarchy,
-	max value is 20. (default 20)""".format(argv[0]))
+	- actually move files. (default 'stats')""".format(argv[0]))
+	#~ * dir-depth (optional) - depth of the reorganized directory hierarchy,
+	#~ max value is 20. (default 20)""".format(argv[0]))
 		exit()
 	if not os.path.exists(argv[1]):
 		print('Directory {} does not exist :('.format(argv[1]))
@@ -64,10 +64,10 @@ def check_args(argv, maxdepth):
 	if (len(argv) > 2) and (argv[2] not in ['stats', 'move']):
 		print('Incorrect value {}. Can be either "stats" or "move"'.format(argv[2]))
 		exit()
-	if (len(argv) > 3):
-		if(int(argv[3]) > maxdepth):
-			print('Error, maximum allowed directory depth is {}'.format(maxdepth))
-			exit()
+	#~ if (len(argv) > 3):
+		#~ if(int(argv[3]) > maxdepth):
+			#~ print('Error, maximum allowed directory depth is {}'.format(maxdepth))
+			#~ exit()
 	
 
 #
@@ -79,8 +79,8 @@ def main(argv):
 	check_args(argv, MAXDEPTH)
 	mv_flag = 0
 	
-	if(len(argv) > 3):	
-		dirdepth = int(argv[3])
+	#~ if(len(argv) > 3):	
+		#~ dirdepth = int(argv[3])
 	nbytes = int(MAXDEPTH*2)/dirdepth   #number of bytes in hash key used for directory naming
 									 #multiplied by 2 because will be using hex representation of key
 	if(len(argv) > 2):
